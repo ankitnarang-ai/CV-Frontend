@@ -28,7 +28,6 @@ export class HomeComponent {
   generateCoverLetter() {
     this.coverLetterService.generateCoverLetter().subscribe({
       next: (response) => {
-        console.log("response", response);
         this.router.navigate(['/cover-letter'], { 
           state: { coverLetter: response.cover_letter } 
         });

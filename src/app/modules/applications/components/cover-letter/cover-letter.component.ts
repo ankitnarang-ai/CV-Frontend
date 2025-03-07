@@ -45,43 +45,56 @@ export class CoverLetterComponent implements OnInit {
 
 
   downloadPDF(): void {
-    const doc = new jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: 'a4',
-    });
-  
-    const content = document.getElementById('cover-letter');
-    if (!content) {
-      console.error('Cover letter element not found!');
+    if (!this.coverLetter) {
+      console.error("No cover letter content found!");
       return;
     }
   
-    const options = {
-      margin: [20, 20, 20, 20], // Margins: top, left, bottom, right
-      html2canvas: {
-        scale: 2, // Improves quality
-      },
-      callback: (pdf: jsPDF) => {
-        // Check if content fits within one page
-        const totalPages = 5
-        for (let i = 1; i <= 5; i++) {
-          pdf.setPage(i);
-          pdf.setFontSize(10); // Footer font size
-          pdf.text(
-            `Page ${i} of ${totalPages}`,
-            pdf.internal.pageSize.width / 2,
-            pdf.internal.pageSize.height - 10,
-            { align: 'center' }
-          );
-        }
-        pdf.save('cover-letter.pdf'); // Save the final PDF
-      },
-    };
+    const doc = new jsPDF();
+    const marginLeft = 10;
+    const marginTop = 15;
+    const lineHeight = 8;
+    const maxWidth = 180;
+    const pageHeight = doc.internal.pageSize.height - 20; // 20 for bottom margin
+    let y = marginTop;
   
-    // Render HTML into PDF
-    doc.html(content, options);
+    const coverLetterLines = this.coverLetter.split('\n');
+  
+    doc.setFont("helvetica");
+    doc.setFontSize(12);
+  
+    coverLetterLines.forEach(line => {
+      let wrappedLines: string[] = [];
+  
+      if (line.startsWith("**") && line.endsWith("**")) {
+        // Bold text handling
+        doc.setFont("helvetica", "bold");
+        wrappedLines = doc.splitTextToSize(line.replace(/\*\*/g, ''), maxWidth);
+        doc.setFont("helvetica", "normal");
+      } else if (line.startsWith("* ")) {
+        // Bullet point handling
+        wrappedLines = doc.splitTextToSize("• " + line.substring(2), maxWidth);
+      } else {
+        // Normal text with wrapping
+        wrappedLines = doc.splitTextToSize(line, maxWidth);
+      }
+  
+      // Print each wrapped line and check for page overflow
+      wrappedLines.forEach((wrappedLine) => {
+        if (y + lineHeight > pageHeight) {
+          doc.addPage(); // Add new page
+          y = marginTop; // Reset y position
+        }
+        doc.text(wrappedLine, marginLeft, y);
+        y += lineHeight;
+      });
+    });
+  
+    doc.save("cover-letter.pdf");
   }
+  
+  
+  
   
   
   
