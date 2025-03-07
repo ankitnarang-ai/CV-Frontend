@@ -1,0 +1,38 @@
+<body class="font-sans">
+    <div class="flex flex-col items-center justify-center h-screen bg-white">
+      <h1 class="text-4xl font-bold mb-4">Land Your Dream Job with AI-Generated Cover Letters</h1>
+      <p class="text-lg mb-8">Simply upload your CV, and our AI will deliver a tailored cover letter for your next opportunity.</p>
+      <div class="bg-gray-100 rounded-lg p-6 w-full max-w-md">
+        <p class="text-gray-500 mb-4">Drop files here to upload...</p>
+        <div class="flex items-center space-x-4">
+          <label for="file-upload" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg cursor-pointer">
+            Upload CV
+          </label>
+          <input id="file-upload" type="file" accept=".pdf,.doc,.docx" class="hidden" (change)="uploadFile($event)">
+        </div>
+        <p class="text-gray-500 text-sm mt-2">Accepted formats: PDF, DOC, DOCX</p>
+      </div>
+      <div class="flex items-center space-x-4 mt-8">
+        <a href="#" class="text-gray-500 hover:text-gray-700">Read More</a>
+        <button (click)="generateCoverLetter()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Generate</button>
+      </div>
+      <div class="flex space-x-4 mt-8">
+        <a href="#" class="text-gray-500 hover:text-gray-700">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="text-gray-500 hover:text-gray-700">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="text-gray-500 hover:text-gray-700">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+      <div class="flex space-x-4 mt-8">
+        <a href="#" class="text-gray-500 hover:text-gray-700">About</a>
+        <a href="#" class="text-gray-500 hover:text-gray-700">Privacy Policy</a>
+        <a href="#" class="text-gray-500 hover:text-gray-700">Terms</a>
+        <a href="#" class="text-gray-500 hover:text-gray-700">Contact</a>
+      </div>
+      <p class="text-gray-500 text-sm mt-8">&copy; 2023 [Your Company Name]. All rights reserved.</p>
+    </div>
+  </body>

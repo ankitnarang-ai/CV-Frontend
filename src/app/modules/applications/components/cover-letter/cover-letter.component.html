@@ -1,0 +1,23 @@
+@if (coverLetter) {
+    <div id="cover-letter" class="container mx-auto max-w-4xl p-6 bg-white shadow-md">
+      <div class="prose max-w-full">
+        @for (line of formattedCoverLetter; track $index) {
+          <div [innerHTML]="line"></div>
+        }
+      </div>
+  
+      <div class="mt-6 flex justify-between">
+        <button 
+          (click)="downloadPDF()" 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Download PDF
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="text-center text-gray-500 p-6">
+      No cover letter available
+    </div>
+  }
+  
